@@ -428,3 +428,43 @@ select {
     margin-bottom: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
+
+/* ========================================================= */
+/* MOBILE & SCROLLING FIXES (Querformat & kleine Bildschirme) */
+/* ========================================================= */
+
+html, body {
+    /* Erlaubt dem Body, größer als der Bildschirm zu werden */
+    min-height: 100vh;
+    height: auto !important; 
+    
+    /* Zwingt den Browser, Scrollen zuzulassen, falls nötig */
+    overflow-y: auto !important; 
+    overflow-x: hidden; 
+    
+    /* Etwas Luft nach unten für die Safari/Chrome Menüleisten */
+    padding-bottom: 20px; 
+}
+
+/* Stellt sicher, dass die einzelnen Bildschirme ebenfalls mitwachsen */
+#screen-main-menu, 
+#screen-setup, 
+#screen-game, 
+#screen-end {
+    min-height: 100vh;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Damit beim Scrollen nichts an den Rändern klebt */
+    margin: 0 auto;
+}
+
+/* Falls dein Einstellungs-Kasten im Querformat zu hoch wird: */
+#screen-setup > div {
+    margin-top: 20px;
+    margin-bottom: 40px; /* Genug Platz zum Start-Button beim Scrollen */
+}
