@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Wavelength Companion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="portrait-warning">
+        <div class="warning-box">
+            🔄 Bitte drehe dein Smartphone ins Querformat (Landscape), um die App zu nutzen!
+        </div>
+    </div>
+
+    <div id="app-container">
+
+        <section id="screen-main-menu" class="screen">
+            <button id="btn-open-rules" class="btn-corner top-left">📜 Anleitung</button>
+            <button id="btn-open-tutorial" class="btn-corner top-right">🎓 Tutorial</button>
+
+            <div class="menu-content">
+                <h1>Wavelength</h1>
+                <h3>Companion App</h3>
+                
+                <div class="dropdown-container">
+                    <label for="category-select">Kategorie wählen:</label>
+                    <select id="category-select">
+                        <option value="all">Alle Kategorien</option>
+                        <option value="standard">Standard Begriffe</option>
+                        <option value="advanced">Erweitert (Schwer)</option>
+                    </select>
+                </div>
+
+                <button id="btn-start-setup" class="btn-main">Spiel starten</button>
+                <button id="btn-resume-game" class="btn-main hidden" style="background-color: #f59e0b; margin-top: 10px; color: #0f172a;">Spiel fortsetzen</button>
+            </div>
+        </section>
+
+        <section id="screen-setup" class="screen hidden">
+            <h2>Spiel-Einstellungen</h2>
+            
+            <div class="setup-grid">
+                <div class="setup-row">
+                    <label for="team-count">Anzahl der Teams (2-6):</label>
+                    <select id="team-count">
+                        <option value="2" selected>2 Teams</option>
+                        <option value="3">3 Teams</option>
+                        <option value="4">4 Teams</option>
+                        <option value="5">5 Teams</option>
+                        <option value="6">6 Teams</option>
+                    </select>
+                </div>
+
+                <div id="team-names-container">
+                    <input type="text" id="team-name-1" class="team-input" maxlength="10" placeholder="Team 1" value="Team 1">
+                    <input type="text" id="team-name-2" class="team-input" maxlength="10" placeholder="Team 2" value="Team 2">
+                </div>
+
+                <div class="setup-row">
+                    <label for="round-count">Rundenlänge:</label>
+                    <select id="round-count">
+                        <option value="10" selected>10 Runden</option>
+                        <option value="15">15 Runden</option>
+                        <option value="20">20 Runden</option>
+                        <option value="50%">50% der Karten</option>
+                        <option value="100%">100% der Karten</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button id="btn-back-to-menu-from-setup" class="btn-corner bottom-left">Zurück</button>
+                    <button id="btn-start-game" class="btn-main">Auf geht's!</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-game" class="screen hidden">
+            <button id="btn-game-info" class="btn-corner top-right">ℹ️ Status</button>
+            
+            <div id="tutorial-banner" class="hidden"></div>
+            
+            <div class="game-content">
+                <div id="playing-card" class="card-back" data-state="back">
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-end" class="screen hidden">
+            <h1 style="color: #f59e0b;">Spielende! 🎉</h1>
+            <h2>Endergebnis</h2>
+            
+            <div id="leaderboard-container" class="setup-grid" style="margin-bottom: 20px;">
+            </div>
+            
+            <button id="btn-back-to-menu-from-end" class="btn-main">Zurück ins Hauptmenü</button>
+        </section>
+
+        <div id="modal-rules" class="modal hidden">
+            <div class="modal-content">
+                <span id="btn-close-rules" class="close-cross">&times;</span>
+                <h2>📜 Kurzanleitung Wavelength</h2>
+                <ol>
+                    <li>Teilt euch in 2 bis 6 Teams auf.</li>
+                    <li>Ein Spieler des aktiven Teams ist der "Tippgeber". Er sieht als Einziger verdeckt das Ziel auf der Scheibe.</li>
+                    <li>Er zieht eine Karte mit gegensätzlichen Begriffen (z.B. "Heiß / Kalt") und gibt einen Hinweis, der dem Ziel auf der Skala entspricht.</li>
+                    <li>Sein Team rät, wo das Ziel liegt. Am Ende werden Punkte (0, 2, 3 oder 4) vergeben.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div id="modal-status" class="modal hidden">
+            <div class="modal-content">
+                <span id="btn-close-status" class="close-cross">&times;</span>
+                <h2>📊 Aktueller Spielstand</h2>
+                <div id="status-display-content">
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-scoring" class="modal hidden">
+            <div class="modal-content">
+                <h2>Wie viele Punkte wurden erzielt?</h2>
+                <div class="score-buttons">
+                    <button class="btn-score" data-points="0">0 Punkte</button>
+                    <button class="btn-score" data-points="2">2 Punkte</button>
+                    <button class="btn-score" data-points="3">3 Punkte</button>
+                    <button class="btn-score" data-points="4">4 Punkte</button>
+                </div>
+                <button id="btn-confirm-score" class="btn-main" disabled>OK</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
