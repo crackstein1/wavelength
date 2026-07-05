@@ -458,3 +458,60 @@ html, body {
     overflow-y: auto;
     padding-right: 10px; /* Platz für die Scrollbar */
 }
+
+/* ========================================================= */
+/* DYNAMISCHE GRÖSSEN (Für Querformat & kleine Bildschirme)  */
+/* ========================================================= */
+
+/* 1. Die Karte (Vorder- und Rückseite) flexibel in der Höhe machen */
+#playing-card, 
+#playing-card[data-state="back"] {
+    width: 90vw;           
+    max-width: 600px; /* Ein kleines bisschen schmaler als vorher */
+    
+    /* clamp(Mindesthöhe, dynamische Höhe (vh = % vom Display), Maximalhöhe) */
+    height: clamp(200px, 50vh, 350px) !important; 
+}
+
+/* Schrift auf der Rückseite der Karte ebenfalls dynamisch schrumpfen */
+#playing-card[data-state="back"] {
+    font-size: clamp(1.5rem, 5vh, 2.5rem) !important;
+}
+
+/* VS-Badge in der Mitte etwas kleiner auf flachen Bildschirmen */
+@media (max-height: 500px) {
+    .card-center-badge {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+/* 2. Pop-ups (wie die Punktevergabe) kompakter machen */
+.modal-content, 
+#modal-scoring > div { /* Greift die inneren Container der Modals ab */
+    width: 90vw;
+    max-width: 500px;
+    padding: clamp(15px, 3vh, 30px) !important; /* Abstand schrumpft, wenn Höhe fehlt */
+    max-height: 90vh; /* Verhindert, dass das Pop-up größer als der Screen wird */
+    overflow-y: auto; /* Erlaubt Scrollen IM Pop-up, falls nötig */
+}
+
+/* Überschriften in den Pop-ups etwas verkleinern */
+.modal-content h2, 
+#modal-scoring h2 {
+    font-size: clamp(1.2rem, 4vh, 1.8rem);
+    margin-bottom: clamp(10px, 2vh, 20px);
+}
+
+/* 3. Punkte-Buttons (0, 2, 3, 4) kompakter anordnen */
+.btn-score {
+    padding: clamp(8px, 2vh, 15px) clamp(10px, 2vw, 20px) !important;
+    font-size: clamp(0.9rem, 2.5vh, 1.2rem) !important;
+    margin: 5px !important;
+}
+
+#btn-confirm-score {
+    margin-top: clamp(10px, 3vh, 20px);
+    padding: 10px 30px;
+}
