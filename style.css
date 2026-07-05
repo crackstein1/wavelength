@@ -430,52 +430,31 @@ select {
 }
 
 /* ========================================================= */
-/* ULTIMATIVER SCROLL-FIX FÜR MOBILE & QUERFORMAT            */
+/* EINFACHE SCROLLBAR FÜR MOBILE & QUERFORMAT                */
 /* ========================================================= */
-
 html, body {
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow-y: auto !important; 
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important; /* Zwingt iOS zum weichen Scrollen */
+    overflow-x: hidden; /* Verhindert seitliches Wackeln */
 }
 
-/* Wir überschreiben das Layout aller Bildschirme radikal */
+/* Gibt den Hauptbildschirmen eine eigene Scrollbar bei Platzmangel */
 #screen-main-menu, 
 #screen-setup, 
 #screen-game, 
 #screen-end {
-    /* Absolutes Positionieren (oft genutzt fürs Zentrieren) killen, da es Scrollen blockiert */
-    position: relative !important; 
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto; /* Die magische Scrollbar */
     
-    min-height: 100vh !important;
-    height: auto !important;
-    
-    display: flex !important;
-    flex-direction: column !important;
-    
-    /* WICHTIG: Nicht mehr zentrieren, sondern strikt oben anfangen! 
-       Verhindert, dass Container nach oben aus dem Bild wachsen. */
-    justify-content: flex-start !important; 
-    align-items: center !important;
-    
-    padding: 40px 20px 120px 20px !important; /* Extra viel Puffer nach unten für die dicke Safari-Leiste */
-    box-sizing: border-box !important;
+    /* Etwas Puffer, damit der Start-Button nicht von der iOS-Leiste verdeckt wird */
+    padding-top: 20px;
+    padding-bottom: 80px; 
+    box-sizing: border-box;
 }
 
-/* Der magische Trick: Auf kleinen Bildschirmen wird normal gescrollt, 
-   auf großen Bildschirmen schiebt dieses "margin: auto" alles wieder perfekt in die Mitte! */
-#screen-main-menu > div, 
-#screen-setup > div, 
-#screen-game > div, 
-#screen-end > div,
-.setup-container {
-    margin-top: auto !important;
-    margin-bottom: auto !important;
-    width: 100%;
-    max-width: 600px; /* Verhindert, dass es auf dem PC zu breit wird */
+/* Optional: Gibt speziell der Einstellungs-Box eine maximale Größe und interne Scrollbar, 
+   falls die Bildschirme als Flexboxen weiterhin stur bleiben */
+#screen-setup > div {
+    max-height: 85vh;
+    overflow-y: auto;
+    padding-right: 10px; /* Platz für die Scrollbar */
 }
