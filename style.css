@@ -460,58 +460,57 @@ html, body {
 }
 
 /* ========================================================= */
-/* DYNAMISCHE GRÖSSEN (Für Querformat & kleine Bildschirme)  */
+/* RELATIVE GRÖSSEN (Passt sich automatisch dem Display an)  */
 /* ========================================================= */
 
-/* 1. Die Karte (Vorder- und Rückseite) flexibel in der Höhe machen */
+/* 1. Haupt-Boxen (Einstellungen, Pop-ups) */
+.setup-container, 
+.modal-content, 
+#modal-scoring > div {
+    width: 90vw !important;
+    max-width: 600px !important;
+    
+    /* Maximal 80% der Bildschirmhöhe, damit nichts abgeschnitten wird */
+    max-height: 80vh !important; 
+    overflow-y: auto !important; /* Erlaubt Scrollen im Container, wenn nötig */
+    
+    /* Innenabstände relativ: 3% der Höhe, 4% der Breite */
+    padding: 3vh 4vw !important; 
+}
+
+/* 2. Die Spielkarte (Vorder- und Rückseite) */
 #playing-card, 
 #playing-card[data-state="back"] {
-    width: 90vw;           
-    max-width: 600px; /* Ein kleines bisschen schmaler als vorher */
+    width: 85vw !important;
+    max-width: 600px !important;
     
-    /* clamp(Mindesthöhe, dynamische Höhe (vh = % vom Display), Maximalhöhe) */
-    height: clamp(200px, 50vh, 350px) !important; 
+    /* Die Höhe ist immer exakt 45% der sichtbaren Bildschirmhöhe */
+    height: 45vh !important; 
+    min-height: 180px !important; /* ...aber schrumpft nie komplett zusammen */
 }
 
-/* Schrift auf der Rückseite der Karte ebenfalls dynamisch schrumpfen */
-#playing-card[data-state="back"] {
-    font-size: clamp(1.5rem, 5vh, 2.5rem) !important;
+/* 3. Texte und Buttons mit vmin (Orientiert sich an der kürzesten Bildschirmseite) */
+h1, h2 {
+    font-size: 5vmin !important;
+    margin-bottom: 2vh !important;
 }
 
-/* VS-Badge in der Mitte etwas kleiner auf flachen Bildschirmen */
-@media (max-height: 500px) {
-    .card-center-badge {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-    }
-}
-
-/* 2. Pop-ups (wie die Punktevergabe) kompakter machen */
-.modal-content, 
-#modal-scoring > div { /* Greift die inneren Container der Modals ab */
-    width: 90vw;
-    max-width: 500px;
-    padding: clamp(15px, 3vh, 30px) !important; /* Abstand schrumpft, wenn Höhe fehlt */
-    max-height: 90vh; /* Verhindert, dass das Pop-up größer als der Screen wird */
-    overflow-y: auto; /* Erlaubt Scrollen IM Pop-up, falls nötig */
-}
-
-/* Überschriften in den Pop-ups etwas verkleinern */
-.modal-content h2, 
-#modal-scoring h2 {
-    font-size: clamp(1.2rem, 4vh, 1.8rem);
-    margin-bottom: clamp(10px, 2vh, 20px);
-}
-
-/* 3. Punkte-Buttons (0, 2, 3, 4) kompakter anordnen */
 .btn-score {
-    padding: clamp(8px, 2vh, 15px) clamp(10px, 2vw, 20px) !important;
-    font-size: clamp(0.9rem, 2.5vh, 1.2rem) !important;
-    margin: 5px !important;
+    /* Relatives Padding: Oben/Unten 2% der Höhe, Links/Rechts 3% der Breite */
+    padding: 2vh 3vw !important;
+    font-size: 3.5vmin !important; 
+    margin: 1vh 1vw !important;
 }
 
 #btn-confirm-score {
-    margin-top: clamp(10px, 3vh, 20px);
-    padding: 10px 30px;
+    padding: 2vh 5vw !important;
+    font-size: 3.5vmin !important;
+    margin-top: 3vh !important;
+}
+
+/* VS-Badge in der Mitte der Karte relativ machen */
+.card-center-badge {
+    width: 12vmin !important;
+    height: 12vmin !important;
+    font-size: 4vmin !important;
 }
