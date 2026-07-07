@@ -1,139 +1,200 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Wavelength Companion</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Wellenlänge">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#F6F4EF">
+<title>Wellenlänge – Karten</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div id="portrait-warning">
-        <div class="warning-box">
-            🔄 Bitte drehe dein Smartphone ins Querformat (Landscape), um die App zu nutzen!
-        </div>
+<div class="rotate-warning">
+  <div class="rotate-icon">🃏</div>
+  <h3>Bitte drehe dein Handy ins Querformat</h3>
+</div>
+
+<div id="app">
+
+  <div class="screen active" id="screen-home">
+    <div class="corner-group left">
+      <button class="corner-btn" id="btn-rules" aria-label="Spielregeln">?</button>
+      <span class="corner-caption">Regeln</span>
     </div>
-
-    <div id="app-container">
-
-        <section id="screen-main-menu" class="screen">
-            <button id="btn-open-rules" class="btn-corner top-left">📜 Anleitung</button>
-            <button id="btn-open-tutorial" class="btn-corner top-right">🎓 Tutorial</button>
-
-            <div class="menu-content">
-                <h1>Wavelength</h1>
-                <h3>Companion App</h3>
-                
-                <div class="dropdown-container">
-                    <label for="category-select">Kategorie wählen:</label>
-                    <select id="category-select">
-                        <option value="all">Alle Kategorien</option>
-                        <option value="standard">Standard Begriffe</option>
-                        <option value="advanced">Erweitert (Schwer)</option>
-                    </select>
-                </div>
-
-                <button id="btn-start-setup" class="btn-main">Spiel starten</button>
-                <button id="btn-resume-game" class="btn-main hidden" style="background-color: #f59e0b; margin-top: 10px; color: #0f172a;">Spiel fortsetzen</button>
-            </div>
-        </section>
-
-        <section id="screen-setup" class="screen hidden">
-            <h2>Spiel-Einstellungen</h2>
-            
-            <div class="setup-grid">
-                <div class="setup-row">
-                    <label for="team-count">Anzahl der Teams (2-6):</label>
-                    <select id="team-count">
-                        <option value="2" selected>2 Teams</option>
-                        <option value="3">3 Teams</option>
-                        <option value="4">4 Teams</option>
-                        <option value="5">5 Teams</option>
-                        <option value="6">6 Teams</option>
-                    </select>
-                </div>
-
-                <div id="team-names-container">
-                    <input type="text" id="team-name-1" class="team-input" maxlength="10" placeholder="Team 1" value="Team 1">
-                    <input type="text" id="team-name-2" class="team-input" maxlength="10" placeholder="Team 2" value="Team 2">
-                </div>
-
-                <div class="setup-row">
-                    <label for="round-count">Rundenlänge:</label>
-                    <select id="round-count">
-                        <option value="10" selected>10 Runden</option>
-                        <option value="15">15 Runden</option>
-                        <option value="20">20 Runden</option>
-                        <option value="50%">50% der Karten</option>
-                        <option value="100%">100% der Karten</option>
-                    </select>
-                </div>
-
-                <div class="button-group">
-                    <button id="btn-back-to-menu-from-setup" class="btn-corner bottom-left">Zurück</button>
-                    <button id="btn-start-game" class="btn-main">Auf geht's!</button>
-                </div>
-            </div>
-        </section>
-
-        <section id="screen-game" class="screen hidden">
-            <button id="btn-game-info" class="btn-corner top-right">ℹ️ Status</button>
-            
-            <div id="tutorial-banner" class="hidden"></div>
-            
-            <div class="game-content">
-                <div id="playing-card" class="card-back" data-state="back">
-                </div>
-            </div>
-        </section>
-
-        <section id="screen-end" class="screen hidden">
-            <h1 style="color: #f59e0b;">Spielende! 🎉</h1>
-            <h2>Endergebnis</h2>
-            
-            <div id="leaderboard-container" class="setup-grid" style="margin-bottom: 20px;">
-            </div>
-            
-            <button id="btn-back-to-menu-from-end" class="btn-main">Zurück ins Hauptmenü</button>
-        </section>
-
-        <div id="modal-rules" class="modal hidden">
-            <div class="modal-content">
-                <span id="btn-close-rules" class="close-cross">&times;</span>
-                <h2>📜 Kurzanleitung Wavelength</h2>
-                <ol>
-                    <li>Teilt euch in 2 bis 6 Teams auf.</li>
-                    <li>Ein Spieler des aktiven Teams ist der "Tippgeber". Er sieht als Einziger verdeckt das Ziel auf der Scheibe.</li>
-                    <li>Er zieht eine Karte mit gegensätzlichen Begriffen (z.B. "Heiß / Kalt") und gibt einen Hinweis, der dem Ziel auf der Skala entspricht.</li>
-                    <li>Sein Team rät, wo das Ziel liegt. Am Ende werden Punkte (0, 2, 3 oder 4) vergeben.</li>
-                </ol>
-            </div>
-        </div>
-
-        <div id="modal-status" class="modal hidden">
-            <div class="modal-content">
-                <span id="btn-close-status" class="close-cross">&times;</span>
-                <h2>📊 Aktueller Spielstand</h2>
-                <div id="status-display-content">
-                </div>
-            </div>
-        </div>
-
-        <div id="modal-scoring" class="modal hidden">
-            <div class="modal-content">
-                <h2>Wie viele Punkte wurden erzielt?</h2>
-                <div class="score-buttons">
-                    <button class="btn-score" data-points="0">0 Punkte</button>
-                    <button class="btn-score" data-points="2">2 Punkte</button>
-                    <button class="btn-score" data-points="3">3 Punkte</button>
-                    <button class="btn-score" data-points="4">4 Punkte</button>
-                </div>
-                <button id="btn-confirm-score" class="btn-main" disabled>OK</button>
-            </div>
-        </div>
-
+    <div class="corner-group right">
+      <button class="corner-btn" id="btn-tutorial-start" aria-label="Tutorial">▶</button>
+      <span class="corner-caption">Tutorial</span>
     </div>
+    <div class="home-layout">
+      <div class="home-brand">
+        <div class="brand-dots" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <h1>Wellenlänge</h1>
+        <p class="sub">Der Karten-Begleiter für euer Wellenlänge-Spiel</p>
+      </div>
+      <div class="home-controls">
+        <div class="mode-row" id="mode-row"></div>
+        <h3 class="eyebrow">Kategorien</h3>
+        <div class="category-list" id="category-list"></div>
+        <button class="btn primary" id="btn-start">Spiel starten</button>
+      </div>
+    </div>
+  </div>
 
-    <script src="script.js"></script>
+  <div class="screen" id="screen-teamcount">
+    <h2>Wie viele Teams spielen mit?</h2>
+    <div class="row" id="teamcount-pills"></div>
+    <div class="row" style="margin-top:26px">
+      <button class="btn ghost" id="btn-teamcount-back">Zurück</button>
+      <button class="btn primary" id="btn-teamcount-next">Weiter</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-teamnames">
+    <h2>Teamnamen eingeben</h2>
+    <p class="sub">Maximal 10 Zeichen pro Team</p>
+    <div class="name-inputs" id="name-inputs"></div>
+    <div class="row" style="margin-top:18px">
+      <button class="btn ghost" id="btn-teamnames-back">Zurück</button>
+      <button class="btn primary" id="btn-teamnames-next">Weiter</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-rounds">
+    <h2>Wie viele Runden?</h2>
+    <p class="sub" id="rounds-info"></p>
+    <div class="row" id="rounds-pills"></div>
+    <div class="row" style="margin-top:26px">
+      <button class="btn ghost" id="btn-rounds-back">Zurück</button>
+      <button class="btn primary" id="btn-rounds-start">Los geht's!</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-game">
+    <div class="corner-group left">
+      <button class="corner-btn" id="btn-info" aria-label="Punktestand">i</button>
+      <span class="corner-caption">Punkte</span>
+    </div>
+    <div class="card-zone">
+      <div class="card" id="game-card">
+        <div class="face back">
+          <div class="card-tag">Karte für</div>
+          <div class="back-team" id="game-team-name">Team 1</div>
+          <div class="tap-hint">Tippen zum Umdrehen</div>
+        </div>
+        <div class="face front">
+          <div class="card-tag" id="game-cat-tag">Kategorie</div>
+          <div class="term-halves">
+            <div class="term-half" id="game-half-a"><div class="term" id="term-a">Begriff A</div></div>
+            <div class="term-half" id="game-half-b"><div class="term" id="term-b">Begriff B</div></div>
+          </div>
+          <div class="vs-badge">VS</div>
+          <div class="tap-hint on-cream" id="front-hint">Tippen, wenn fertig geraten wurde</div>
+          <div class="score-view" id="score-view">
+            <h3>Wie viele Punkte?</h3>
+            <div class="score-buttons" id="score-buttons"></div>
+            <button class="btn primary" id="btn-score-ok" disabled>OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-tutorial">
+    <button class="btn ghost small skip-tutorial" id="btn-tutorial-skip">Tutorial überspringen</button>
+    <div class="card-zone">
+      <div class="card" id="tut-card">
+        <div class="face back">
+          <div class="card-tag">Karte für</div>
+          <div class="back-team" id="tut-team-name">Team 1</div>
+        </div>
+        <div class="face front">
+          <div class="card-tag">Beispiel-Kategorie</div>
+          <div class="term-halves">
+            <div class="term-half" id="tut-half-a"><div class="term">Lecker</div></div>
+            <div class="term-half" id="tut-half-b"><div class="term">Eklig</div></div>
+          </div>
+          <div class="vs-badge">VS</div>
+          <div class="score-view" id="tut-score-view">
+            <h3>Wie viele Punkte?</h3>
+            <div class="score-buttons" id="tut-score-buttons"></div>
+            <button class="btn primary" id="tut-score-ok" disabled>OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout" id="tut-callout"></div>
+  </div>
+
+  <div class="screen" id="screen-freeplay">
+    <button class="corner-btn" id="btn-freeplay-exit" aria-label="Beenden" style="position:absolute;top:max(12px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));z-index:20;">×</button>
+    <div class="card-zone">
+      <div class="card" id="fp-card">
+        <div class="face back">
+          <div class="card-tag">Freies Spiel</div>
+          <div class="tap-hint" style="margin-top:6px;">Tippen für die nächste Karte</div>
+        </div>
+        <div class="face front">
+          <div class="card-tag" id="fp-cat-tag">Kategorie</div>
+          <div class="term-halves">
+            <div class="term-half" id="fp-half-a"><div class="term" id="fp-term-a">Begriff A</div></div>
+            <div class="term-half" id="fp-half-b"><div class="term" id="fp-term-b">Begriff B</div></div>
+          </div>
+          <div class="vs-badge">VS</div>
+          <div class="tap-hint on-cream">Tippen für die nächste Karte</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-end">
+    <h1 style="text-transform:none;">Spiel beendet! 🎉</h1>
+    <div class="end-list" id="end-list"></div>
+    <button class="btn primary" id="btn-newgame">Neues Spiel</button>
+  </div>
+
+</div>
+
+<div class="modal-overlay" id="modal-rules">
+  <div class="modal">
+    <button class="modal-close" data-close="modal-rules">×</button>
+    <h2>So wird gespielt</h2>
+    <ol>
+      <li><b>Karte aufdecken:</b> Das Team liest die zwei Begriffe auf der Karte, z.&nbsp;B. „Kalt“ – „Heiß“.</li>
+      <li><b>Zielpunkt denken:</b> Eine Person im Team denkt sich still einen Begriff aus und ordnet ihn gedanklich zwischen den beiden Polen ein.</li>
+      <li><b>Hinweis geben:</b> Diese Person gibt dem Rest des Teams einen Hinweis dazu.</li>
+      <li><b>Gemeinsam raten:</b> Das Team einigt sich, wo auf der Skala der Begriff liegt, z.&nbsp;B. mit dem Wellenlänge-Regler.</li>
+      <li><b>Punkte eintragen:</b> Je näher der Tipp am Ziel liegt, desto mehr Punkte (0–4). Punktzahl bestätigen, dann ist das nächste Team dran.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-info">
+  <div class="modal">
+    <button class="modal-close" data-close="modal-info">×</button>
+    <div class="round-tag" id="info-round-tag">Runde 1 von 10</div>
+    <div class="score-list" id="info-score-list"></div>
+    <div class="row" style="margin-top:16px;justify-content:center;">
+      <button class="btn ghost small" id="btn-quit-game">Spiel beenden</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-confirm-quit">
+  <div class="modal">
+    <h2>Spiel beenden?</h2>
+    <p class="sub" style="margin:0 auto 16px;">Der aktuelle Punktestand geht verloren.</p>
+    <div class="row">
+      <button class="btn ghost" id="btn-quit-cancel">Abbrechen</button>
+      <button class="btn primary" id="btn-quit-confirm">Beenden</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
