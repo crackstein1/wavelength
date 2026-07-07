@@ -437,7 +437,7 @@ function renderInfoModal(){
   state.teamNames.forEach((name,i)=>{
     const div = document.createElement("div");
     div.className = "score-row" + (i===currentTeamIndex() ? " current":"");
-    div.innerHTML = "<span style='margin-right: 4px;'>" + escapeHtml(name) + ":</span><span>" + state.scores[i] + " Punkte</span>";
+    div.innerHTML = "<span>" + escapeHtml(name) + " :</span><span>" + state.scores[i] + " Punkte</span>";
     el.appendChild(div);
   });
 }
